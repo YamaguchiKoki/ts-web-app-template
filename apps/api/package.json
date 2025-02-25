@@ -1,0 +1,22 @@
+{
+	"name": "api",
+	"type": "module",
+	"scripts": {
+		"build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
+		"zip": "zip -j lambda.zip dist/index.js",
+		"update": "aws lambda update-function-code --zip-file fileb://lambda.zip --function-name hello",
+		"deploy": "run-s build zip update",
+		"format-and-lint": "biome check .",
+		"format-and-lint:fix": "biome check . --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@template/config": "workspace:^",
+		"@types/node": "^20",
+		"esbuild": "^0.21.4",
+		"npm-run-all2": "^6.2.0"
+	},
+	"dependencies": {
+		"hono": "^4.7.2"
+	}
+}

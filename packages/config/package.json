@@ -1,0 +1,7 @@
+{
+	"name": "@template/config",
+	"private": true,
+	"version": "0.1.0",
+	"files": ["*.json"],
+	"packageManager": "pnpm@10.4.1"
+}

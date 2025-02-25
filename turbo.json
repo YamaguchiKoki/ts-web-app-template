@@ -1,0 +1,30 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"tasks": {
+		"dev": {
+			"dependsOn": ["^dev"],
+			"persistent": true,
+			"cache": false
+		},
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".next/**"]
+		},
+		"//#format-and-lint": {
+			"cache": false
+		},
+		"//#format-and-lint:fix": {
+			"cache": false
+		},
+		"studio": {
+			"cache": false,
+			"persistent": true
+		},
+		"push": {
+			"cache": false,
+			"interactive": true
+		}
+	},
+	"globalEnv": ["DATABASE_URL"],
+	"globalPassThroughEnv": ["NODE_ENV"]
+}

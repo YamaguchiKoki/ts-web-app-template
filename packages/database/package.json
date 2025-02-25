@@ -1,0 +1,51 @@
+{
+	"name": "@template/database",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index/d.ts",
+			"default": "./dist/index/index.ts"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./src/client.ts"
+		},
+		"./schema": {
+			"types": "./dist/schema.d.ts",
+			"default": "./src/schema.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc",
+		"format-and-lint": "biome check .",
+		"format-and-lint:fix": "biome check . --write",
+		"push": "pnpm with-env drizzle-kit push",
+		"studio": "pnpm with-env drizzle-kit studio",
+		"with-env": "dotenv -e ../../.env.local --"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.4.1",
+	"dependencies": {
+		"@neondatabase/serverless": "^0.10.4",
+		"drizzle-orm": "^0.39.3",
+		"drizzle-zod": "^0.7.0",
+		"ws": "^8.18.1",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@template/config": "workspace:^",
+		"@biomejs/biome": "1.9.4",
+		"@types/node": "^20.17.19",
+		"@types/ws": "^8.5.14",
+		"dotenv-cli": "^8.0.0",
+		"drizzle-kit": "^0.30.4",
+		"postgres": "^3.4.5",
+		"typescript": "catalog:"
+	}
+}
