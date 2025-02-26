@@ -1,5 +1,4 @@
-import { pipe } from "@effect/data/Function";
-import * as Effect from "@effect/io/Effect";
+import { Effect, pipe } from "effect";
 import type { ZodError } from "zod";
 import type { CreateUserInput, User } from "../../entities/user";
 import { CreateUserInputSchema } from "../../entities/user";
@@ -9,14 +8,13 @@ import type { UserRepository } from "../../repositories/user";
 
 export const makeCreateUser =
 	(repository: UserRepository) =>
-	(input: CreateUserInput): Effect.Effect<never, UserError | ZodError, User> =>
+	(input: CreateUserInput): Effect.Effect<User, UserError | ZodError> =>
 		pipe(
 			// 入力値のバリデーション
 			Effect.try({
 				try: () => CreateUserInputSchema.parse(input),
 				catch: (e) => e as ZodError,
 			}),
-
 			// メールアドレスの重複チェック
 			Effect.flatMap((validatedInput: CreateUserInput) =>
 				pipe(
@@ -28,7 +26,6 @@ export const makeCreateUser =
 					),
 				),
 			),
-
 			// ユーザーの作成
 			Effect.flatMap((validatedInput: CreateUserInput) =>
 				repository.create(validatedInput),

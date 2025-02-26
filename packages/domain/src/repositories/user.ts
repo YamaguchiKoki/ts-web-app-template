@@ -1,10 +1,10 @@
-import type { Effect } from "@effect/io/Effect";
+import { type Effect, pipe } from "effect";
 import type { CreateUserInput, User } from "../entities/user";
 import type { UserError } from "../errors/user";
 
 export interface UserRepository {
-	readonly create: (input: CreateUserInput) => Effect<never, UserError, User>;
+	readonly create: (input: CreateUserInput) => Effect.Effect<User, UserError>;
 	readonly findByEmail: (
 		email: string,
-	) => Effect<never, UserError, User | null>;
+	) => Effect.Effect<User | null, UserError>;
 }

@@ -1,12 +1,10 @@
-import * as Either from "@effect/data/Either";
-import { pipe } from "@effect/data/Function";
-import * as Effect from "@effect/io/Effect";
+import { Effect, Either, pipe } from "effect";
 import { describe, expect, it } from "vitest";
 import type { User } from "../../src/entities/user";
 import { UserAlreadyExistsError } from "../../src/errors/user";
 import type { UserRepository } from "../../src/repositories/user";
 import { makeCreateUser } from "../../src/usecases/user/createUser";
-import { existingUser, validCreateUserInput } from "../__fixtures__/users";
+import { validCreateUserInput } from "../__fixtures__/users";
 
 describe("makeCreateUser", () => {
 	const mockUser: User = {

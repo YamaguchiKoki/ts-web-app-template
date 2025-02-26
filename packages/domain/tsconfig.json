@@ -3,7 +3,6 @@
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"],
 	"compilerOptions": {
-		"strict": true,
-		"exactOptionalPropertyTypes": true
+		"strict": true
 	}
 }
