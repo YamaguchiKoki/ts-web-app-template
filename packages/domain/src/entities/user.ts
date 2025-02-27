@@ -10,6 +10,7 @@ export const UserSchema = z.object({
 
 export type User = z.infer<typeof UserSchema>;
 
+// TODO: drizzle-zodを使うと、domain->databaseへの依存が生まれるので一旦控える
 export const CreateUserInputSchema = z.object({
 	email: z.string().email(),
 	name: z.string().min(1),

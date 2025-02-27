@@ -1,12 +1,14 @@
-export class UserAlreadyExistsError extends Error {
-	readonly _tag = "UserAlreadyExistsError" as const;
+import { AppError } from "./custom-error";
+
+export class UserAlreadyExistsError extends AppError {
+	readonly _tag = "AlreadyExistsError" as const;
 	constructor(email: string) {
 		super(`User with email ${email} already exists`);
 	}
 }
 
-export class UserNotFoundError extends Error {
-	readonly _tag = "UserNotFoundError" as const;
+export class UserNotFoundError extends AppError {
+	readonly _tag = "NotFoundError" as const;
 	constructor(email: string) {
 		super(`User with email ${email} not found`);
 	}
@@ -14,3 +16,4 @@ export class UserNotFoundError extends Error {
 
 // Union型として定義
 export type UserError = UserAlreadyExistsError | UserNotFoundError;
+

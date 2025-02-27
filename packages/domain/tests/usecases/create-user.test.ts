@@ -2,8 +2,8 @@ import { Effect, Either, pipe } from "effect";
 import { describe, expect, it } from "vitest";
 import type { User } from "../../src/entities/user";
 import { UserAlreadyExistsError } from "../../src/errors/user";
-import type { UserRepository } from "../../src/repositories/user";
-import { makeCreateUser } from "../../src/usecases/user/createUser";
+import type { IUserRepository } from "../../src/repositories/user";
+import { makeCreateUser } from "../../src/usecases/user/create-user";
 import { validCreateUserInput } from "../__fixtures__/users";
 
 describe("makeCreateUser", () => {
@@ -15,7 +15,7 @@ describe("makeCreateUser", () => {
 	};
 
 	describe("正常系", () => {
-		const mockRepository: UserRepository = {
+		const mockRepository: IUserRepository = {
 			create: (input) => Effect.succeed({ ...mockUser, ...input }),
 			findByEmail: () => Effect.succeed(null),
 		};
@@ -34,7 +34,7 @@ describe("makeCreateUser", () => {
 	});
 
 	describe("準異常系：すでに登録済みユーザーが存在する", () => {
-		const mockRepository: UserRepository = {
+		const mockRepository: IUserRepository = {
 			create: () => Effect.succeed(mockUser),
 			findByEmail: () => Effect.succeed(mockUser),
 		};
@@ -59,7 +59,7 @@ describe("makeCreateUser", () => {
 	});
 
 	describe("準異常系：不正な入力データ", () => {
-		const mockRepository: UserRepository = {
+		const mockRepository: IUserRepository = {
 			create: () => Effect.succeed(mockUser),
 			findByEmail: () => Effect.succeed(null),
 		};

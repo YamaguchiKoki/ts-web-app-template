@@ -7,7 +7,7 @@
 	"exports": {
 		".": {
 			"types": "./dist/index/d.ts",
-			"default": "./dist/index/index.ts"
+			"default": "./src/index.ts"
 		},
 		"./client": {
 			"types": "./dist/client.d.ts",
