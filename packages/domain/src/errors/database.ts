@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import { AppError } from "./custom-error";
+import { AppError } from "./custom-error.js";
 
 export class DatabaseConnectionError extends AppError {
 	readonly _tag = "DatabaseError" as const;

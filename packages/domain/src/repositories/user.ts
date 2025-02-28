@@ -1,7 +1,7 @@
 import type { Effect } from "effect";
-import type { CreateUserInput, User } from "../entities/user";
-import type { DatabaseError } from "../errors";
-import type { UserError } from "../errors/user";
+import type { CreateUserInput, User } from "../entities/user.js";
+import type { DatabaseError } from "../errors/database.js";
+import type { UserError } from "../errors/user.js";
 
 export interface IUserRepository {
 	readonly create: (

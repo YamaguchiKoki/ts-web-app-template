@@ -3,10 +3,12 @@ import {
 	type CreatePostInput,
 	CreatePostInputSchema,
 	type Post,
-} from "../../entities";
-import type { DatabaseError, PostError, ValidationError } from "../../errors";
-import type { IPostRepository } from "../../repositories/post";
-import { validateAndParse } from "../../util/zod-parser";
+} from "../../entities/post.js";
+import type { ValidationError } from "../../errors/custom-error.js";
+import type { DatabaseError } from "../../errors/database.js";
+import type { PostError } from "../../errors/post.js";
+import type { IPostRepository } from "../../repositories/post.js";
+import { validateAndParse } from "../../util/zod-parser.js";
 
 export const makeCreatePost =
 	(repository: IPostRepository) =>

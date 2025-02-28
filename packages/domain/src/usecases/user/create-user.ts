@@ -1,11 +1,11 @@
 import { Effect, pipe } from "effect";
 import type { ZodError } from "zod";
-import type { CreateUserInput, User } from "../../entities/user";
-import { CreateUserInputSchema } from "../../entities/user";
-import type { DatabaseError } from "../../errors";
-import { UserAlreadyExistsError } from "../../errors/user";
-import type { UserError } from "../../errors/user";
-import type { IUserRepository } from "../../repositories/user";
+import type { CreateUserInput, User } from "../../entities/user.js";
+import { CreateUserInputSchema } from "../../entities/user.js";
+import type { DatabaseError } from "../../errors/database.js";
+import { UserAlreadyExistsError } from "../../errors/user.js";
+import type { UserError } from "../../errors/user.js";
+import type { IUserRepository } from "../../repositories/user.js";
 
 export const makeCreateUser =
 	(repository: IUserRepository) =>

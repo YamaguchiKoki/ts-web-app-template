@@ -4,6 +4,7 @@
 		"timowilhelm",
 		"healthcheck",
 		"usecases",
-		"usecase"
+		"usecase",
+		"localtest"
 	]
 }

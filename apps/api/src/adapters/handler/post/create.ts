@@ -1,18 +1,19 @@
-import assert from "node:assert";
 import { zValidator } from "@hono/zod-validator";
-import { makeCreatePost, validateAndParse } from "@template/domain";
-import { Effect, Either, pipe } from "effect";
-import { createFactory } from "hono/factory";
-import type { AppType } from "../../../type";
-import { createPostRequestSchema as requestSchema } from "../../schema/post/request";
 import {
-	type CreatePostResponse,
-	createPostResponseSchema,
-} from "../../schema/post/response";
+	type DatabaseError,
+	type PostNotFoundError,
+	type ValidationError,
+	makeCreatePost,
+} from "@template/domain";
+import { Effect, Either } from "effect";
+import { createFactory } from "hono/factory";
+import type { AppType } from "../../../app.js";
+import { createPostRequestSchema as requestSchema } from "../../schema/post/request.js";
+import { createPostResponseSchema } from "../../schema/post/response.js";
+import { makeResponseParser } from "../response-parser.js";
 
 const factory = createFactory<AppType>();
-
-//TODO handle Result抽象化
+type UseCaseError = DatabaseError | ValidationError | PostNotFoundError;
 
 export const createPostHandler = factory.createHandlers(
 	zValidator("json", requestSchema, (result, c) => {
@@ -27,50 +28,20 @@ export const createPostHandler = factory.createHandlers(
 		}
 	}),
 	async (c) => {
-		// 入力データの抽出とEffectを返すユースケース関数の依存性を解決する
 		const input = c.req.valid("json");
 		const container = c.env.container;
 		const usecase = makeCreatePost(container.get("postRepository"));
+		const parser = makeResponseParser(c);
 
-		assert(input);
-
-		const program = Effect.gen(function* () {
+		const executor = Effect.gen(function* () {
 			const failureOrSuccess = yield* Effect.either(usecase(input));
-			if (Either.isRight(failureOrSuccess)) {
-				return yield* pipe(
-					Effect.succeed(failureOrSuccess.right),
-					Effect.andThen(
-						validateAndParse<CreatePostResponse>(createPostResponseSchema),
-					),
-					Effect.andThen((input) => {
-						return Effect.succeed(c.json(input));
-					}),
-				);
-			}
-			if (Either.isLeft(failureOrSuccess)) {
-				return yield* pipe(
-					Effect.fail(failureOrSuccess.left),
-					Effect.catchTags({
-						DatabaseError: () =>
-							Effect.succeed(
-								c.json({
-									statusCode: 500,
-									message: "Internal Server Error",
-								}),
-							),
-					}),
-					Effect.catchAll((err) => {
-						console.error(err);
-						return Effect.succeed(
-							c.json({
-								statusCode: 500,
-								message: "Internal Server Error",
-							}),
-						);
-					}),
-				);
-			}
+			return Either.match(failureOrSuccess, {
+				onLeft: (error) => parser.error<UseCaseError>(error),
+				onRight: (result) =>
+					parser.success(createPostResponseSchema, result, 201),
+			});
 		});
-		return Effect.runPromise(program);
+
+		return Effect.runPromise(executor);
 	},
 );

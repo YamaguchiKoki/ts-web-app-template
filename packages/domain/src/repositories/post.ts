@@ -1,7 +1,7 @@
 import type { Effect } from "effect";
-import type { CreatePostInput, Post } from "../entities/post";
-import type { DatabaseError } from "../errors";
-import type { PostError } from "../errors/post";
+import type { CreatePostInput, Post } from "../entities/post.js";
+import type { DatabaseError } from "../errors/database.js";
+import type { PostError } from "../errors/post.js";
 
 export interface IPostRepository {
 	readonly create: (

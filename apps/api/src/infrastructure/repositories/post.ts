@@ -16,6 +16,10 @@ export const makePostRepository = (): IPostRepository => ({
 	): Effect.Effect<Post, PostError | DatabaseError> =>
 		Effect.tryPromise({
 			try: async () => {
+				console.log({
+					connectionString: process.env.DATABASE_URL,
+					input: input,
+				});
 				const [post] = await db
 					.insert(posts)
 					.values({

@@ -1,4 +1,4 @@
-import { AppError } from "./custom-error";
+import { AppError } from "./custom-error.js";
 
 export class UserAlreadyExistsError extends AppError {
 	readonly _tag = "AlreadyExistsError" as const;

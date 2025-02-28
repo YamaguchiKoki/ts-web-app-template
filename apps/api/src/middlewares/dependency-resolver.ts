@@ -1,8 +1,7 @@
 import type { IPostRepository } from "@template/domain";
-import { next } from "effect/Random";
 import { createMiddleware } from "hono/factory";
-import { DIContainer } from "../config/di-container";
-import { makePostRepository } from "../infrastructure/repositories/post";
+import { DIContainer } from "../config/di-container.js";
+import { makePostRepository } from "../infrastructure/repositories/post.js";
 
 export type DependencyTypes = {
 	postRepository: IPostRepository;

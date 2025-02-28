@@ -1,4 +1,4 @@
-import { AppError } from "./custom-error";
+import { AppError } from "./custom-error.js";
 
 export class PostNotFoundError extends AppError {
 	readonly _tag = "NotFoundError" as const;
