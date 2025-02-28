@@ -4,8 +4,34 @@ import type { Context } from "hono";
 import type { z } from "zod";
 import type { AppType } from "../../app.js";
 
+/**
+ * APIレスポンスのパースと整形を行うパーサーを生成する
+ * @param c - Honoのコンテキスト
+ * @returns レスポンスパーサーオブジェクト
+ *
+ * @example
+ * ```ts
+ * const parser = makeResponseParser(c);
+ *
+ * // エラーハンドリング
+ * parser.error<UseCaseError>(error);
+ *
+ * // 成功レスポンスのパース
+ * parser.success(responseSchema, result, 201);
+ * ```
+ */
 export const makeResponseParser = (c: Context<AppType>) => {
 	return {
+		/**
+		 * エラーレスポンスを生成する
+		 * @template E - AppErrorを継承したエラー型
+		 * @param error - エラーオブジェクト
+		 * @returns エラー種別に応じたHTTPレスポンス
+		 * - NotFoundError: 404 Not Found
+		 * - ValidationError: 400 Bad Request
+		 * - AlreadyExistsError: 409 Conflict
+		 * - DatabaseError: 500 Internal Server Error
+		 */
 		error<E extends AppError>(error: E) {
 			const executor = pipe(
 				Effect.fail<E>(error),
@@ -42,6 +68,14 @@ export const makeResponseParser = (c: Context<AppType>) => {
 			);
 			return Effect.runSync(executor);
 		},
+		/**
+		 * 成功レスポンスを生成する
+		 * @template T - Zodスキーマの型
+		 * @param schema - レスポンスのバリデーションスキーマ
+		 * @param value - バリデーション対象の値
+		 * @param statusCode - HTTPステータスコード（デフォルト: 200）
+		 * @returns バリデーション済みのHTTPレスポンス
+		 */
 		success<T extends z.ZodType>(schema: T, value: unknown, statusCode = 200) {
 			const executor = pipe(
 				Effect.succeed(value),

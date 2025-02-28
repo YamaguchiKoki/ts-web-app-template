@@ -30,9 +30,12 @@ export const createPostHandler = factory.createHandlers(
 	async (c) => {
 		const input = c.req.valid("json");
 		const container = c.env.container;
+
+		// 依存関係の注入
 		const usecase = makeCreatePost(container.get("postRepository"));
 		const parser = makeResponseParser(c);
 
+		// ユースケースを実行し、結果に応じたレスポンスを生成するEffectを生成
 		const executor = Effect.gen(function* () {
 			const failureOrSuccess = yield* Effect.either(usecase(input));
 			return Either.match(failureOrSuccess, {
@@ -42,6 +45,7 @@ export const createPostHandler = factory.createHandlers(
 			});
 		});
 
+		// Effectを実行し、Promiseに変換した上で返却
 		return Effect.runPromise(executor);
 	},
 );
