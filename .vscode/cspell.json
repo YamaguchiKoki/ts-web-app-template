@@ -5,6 +5,7 @@
 		"healthcheck",
 		"usecases",
 		"usecase",
-		"localtest"
+		"localtest",
+		"turbopack"
 	]
 }

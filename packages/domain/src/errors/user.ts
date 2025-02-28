@@ -16,4 +16,3 @@ export class UserNotFoundError extends AppError {
 
 // Union型として定義
 export type UserError = UserAlreadyExistsError | UserNotFoundError;
-
