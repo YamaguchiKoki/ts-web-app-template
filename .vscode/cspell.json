@@ -6,6 +6,7 @@
 		"usecases",
 		"usecase",
 		"localtest",
-		"turbopack"
+		"turbopack",
+		"sooner"
 	]
 }
