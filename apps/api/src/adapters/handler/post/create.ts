@@ -32,7 +32,7 @@ export const createPostHandler = factory.createHandlers(
 		const container = c.env.container;
 
 		// 依存関係の注入
-		const usecase = makeCreatePost(container.get("postRepository"));
+		const usecase = container.get("createPostUsecase");
 		const parser = makeResponseParser(c);
 
 		// ユースケースを実行し、結果に応じたレスポンスを生成するEffectを生成
