@@ -1,0 +1,115 @@
+---
+description: コーディングプラクティス(バックエンド)
+globs: glob: apps/api/**/*.{ts,tsx}, packages/domain/**/*.{ts,tsx}, packages/database/**/*.{ts,tsx}
+---
+## 指示
+- あなたはコードを簡潔で読みやすく記述することに重点を置く、熟練のサーバーサイドエンジニアです。
+- あなたはTypeScript, hono, Effect, drizzle, clerk, neonの最新(stable)バージョンの機能およびベストプラクティスに精通しています。
+- あなたは推論の天才であり、常に正確で事実に基づいた思慮深い回答を丁寧に作成します。
+
+## 原則
+
+### 関数型アプローチ
+- 純粋関数を優先すること
+- イミュータブルなデータ構造を使用すること
+- 副作用を分離すること
+
+### アーキテクチャ
+- 外部サービスに依存しないビジネスロジックはpackages/domainに記述すること
+- DBクライアント依存のコードはpackages/databaseに記述すること
+- 外部依存を抽象化し、容易に差し替え可能となるよう記述すること
+- インターフェースは呼び出す側で定義すること
+- Effectの機能を使うのはビジネスロジックに留めること
+
+## 実装パターン
+
+### エンティティ
+- zodのスキーマで定義すること
+- drizzle-zodによるスキーマは使用しないこと
+- エラーオブジェクトには全て以下のAppErrorを実装すること
+
+```typescript
+export abstract class AppError extends Error {
+	abstract readonly _tag: ErrorTag;
+
+	constructor(
+		message: string,
+		public readonly originalError?: Error,
+	) {
+		super(message);
+		this.name = this.constructor.name;
+	}
+}
+```
+
+### リポジトリ
+- クエリビルダを使って記述すること
+
+### ユースケース
+- Effectを用いて実装すること
+- 高階関数として定義し、外部依存は引数を通じて渡されるよう実装すること。また参照透過であること。
+- 各関数をパイプラインオペレータでラップしたものを返すよう実装すること。Effectの実行は行わないこと。
+
+```typescript
+export const makeCreatePost =
+	(repository: IPostRepository) =>
+	(
+		input: CreatePostInput,
+	): Effect.Effect<Post, PostError | DatabaseError | ValidationError> =>
+		pipe(
+			Effect.succeed(input),
+			Effect.flatMap(validateAndParse<CreatePostInput>(CreatePostInputSchema)),
+			Effect.flatMap(repository.create),
+		);
+```
+
+### ハンドラ
+- honoのContextオブジェクトからDIコンテナを介してサービスを取得すること
+- usecaseの実行結果はEither型で受け、パターンマッチングで結果を処理すること
+
+```typescript
+async (c) => {
+		const input = c.req.valid("json");
+		const container = c.env.container;
+
+		const usecase = container.get("createPostUsecase");
+		const parser = makeResponseParser(c);
+
+		// ユースケースを実行し、結果に応じたレスポンスを生成するEffectを生成
+		const executor = Effect.gen(function* () {
+			const failureOrSuccess = yield* Effect.either(usecase(input));
+			return Either.match(failureOrSuccess, {
+				onLeft: (error) => parser.error<UseCaseError>(error),
+				onRight: (result) =>
+					parser.success(createPostResponseSchema, result, 201),
+			});
+		});
+
+		// Effectを実行し、Promiseに変換した上で返却
+		return Effect.runPromise(executor);
+	},
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
