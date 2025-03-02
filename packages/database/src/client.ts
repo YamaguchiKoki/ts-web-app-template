@@ -6,7 +6,7 @@ import ws from "ws";
 
 let connectionString = process.env.DATABASE_URL;
 
-if (process.env.NODE_ENV === "local") {
+if (process.env.NODE_ENV === "development") {
 	// Configuring Neon for local development
 	connectionString = "postgres://postgres:postgres@db.localtest.me:5432/main";
 	neonConfig.fetchEndpoint = (host) => {

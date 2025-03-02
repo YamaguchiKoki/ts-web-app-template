@@ -9,6 +9,9 @@ catalogs:
     effect:
       specifier: ^3.13.2
       version: 3.13.2
+    hono:
+      specifier: ^4.7.2
+      version: 4.7.2
     typescript:
       specifier: ^5.7.3
       version: 5.7.3
@@ -32,6 +35,9 @@ importers:
       '@hono/zod-validator':
         specifier: ^0.4.3
         version: 0.4.3(hono@4.7.2)(zod@3.24.2)
+      '@template/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       '@template/database':
         specifier: workspace:^
         version: link:../../packages/database
@@ -202,6 +208,15 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.8
         version: 1.1.8(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@template/api':
+        specifier: workspace:^
+        version: link:../api
+      '@template/config':
+        specifier: workspace:^
+        version: link:../../packages/config
+      '@template/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -217,6 +232,9 @@ importers:
       embla-carousel-react:
         specifier: ^8.5.2
         version: 8.5.2(react@19.0.0)
+      hono:
+        specifier: 'catalog:'
+        version: 4.7.2
       input-otp:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -241,9 +259,6 @@ importers:
       react-error-boundary:
         specifier: ^5.0.0
         version: 5.0.0(react@19.0.0)
-      react-hook-form:
-        specifier: ^7.54.2
-        version: 7.54.2(react@19.0.0)
       react-resizable-panels:
         specifier: ^2.1.7
         version: 2.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -289,6 +304,28 @@ importers:
         version: 5.7.3
 
   packages/config: {}
+
+  packages/contract:
+    dependencies:
+      '@template/config':
+        specifier: workspace:^
+        version: link:../config
+      '@template/domain':
+        specifier: workspace:^
+        version: link:../domain
+      zod:
+        specifier: 'catalog:'
+        version: 3.24.2
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
+      '@types/node':
+        specifier: ^22.13.8
+        version: 22.13.8
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
 
   packages/database:
     dependencies:
@@ -2424,6 +2461,9 @@ packages:
   '@types/node@20.17.19':
     resolution: {integrity: sha512-LEwC7o1ifqg/6r2gn9Dns0f1rhK+fPFDoMiceTJ6kWmVk6bgXBI/9IOWfVan4WiAavK9pIVWdX0/e3J+eEUh5A==}
 
+  '@types/node@22.13.8':
+    resolution: {integrity: sha512-G3EfaZS+iOGYWLLRCEAXdWK9my08oHNZ+FHluRiggIYJPOXzhOiDgpVCUHaUvyIC5/fj7C/p637jdzC666AOKQ==}
+
   '@types/pg@8.11.6':
     resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
 
@@ -4341,6 +4381,9 @@ packages:
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
   undici@7.3.0:
     resolution: {integrity: sha512-Qy96NND4Dou5jKoSJ2gm8ax8AJM/Ey9o9mz7KN1bb9GP+G0l20Zw8afxTnY2f4b7hmhn/z8aC2kfArVQlAhFBw==}
@@ -6440,6 +6483,10 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/node@22.13.8':
+    dependencies:
+      undici-types: 6.20.0
+
   '@types/pg@8.11.6':
     dependencies:
       '@types/node': 20.17.19
@@ -8489,6 +8536,8 @@ snapshots:
   undefsafe@2.0.5: {}
 
   undici-types@6.19.8: {}
+
+  undici-types@6.20.0: {}
 
   undici@7.3.0: {}
 
