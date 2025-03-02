@@ -32,5 +32,5 @@ serve({
 
 console.log("Server is running on port 8787");
 
-export default app;
-export type HonoRPC = typeof routes;
+export { routes };
+export { app };

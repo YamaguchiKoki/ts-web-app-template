@@ -2,7 +2,7 @@ import { type AppError, validateAndParse } from "@template/domain";
 import { Effect, pipe } from "effect";
 import type { Context } from "hono";
 import type { z } from "zod";
-import type { AppType } from "../../app.js";
+import type { AppType } from "../app.js";
 
 /**
  * APIレスポンスのパースと整形を行うパーサーを生成する

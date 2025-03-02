@@ -1,16 +1,17 @@
 import { zValidator } from "@hono/zod-validator";
 import {
-	type DatabaseError,
-	type PostNotFoundError,
-	type ValidationError,
-	makeCreatePost,
+	createPostResponseSchema,
+	createPostRequestSchema as requestSchema,
+} from "@template/contract/api";
+import type {
+	DatabaseError,
+	PostNotFoundError,
+	ValidationError,
 } from "@template/domain";
 import { Effect, Either } from "effect";
 import { createFactory } from "hono/factory";
 import type { AppType } from "../../../app.js";
-import { createPostRequestSchema as requestSchema } from "../../schema/post/request.js";
-import { createPostResponseSchema } from "../../schema/post/response.js";
-import { makeResponseParser } from "../response-parser.js";
+import { makeResponseParser } from "../../response-parser.js";
 
 const factory = createFactory<AppType>();
 type UseCaseError = DatabaseError | ValidationError | PostNotFoundError;

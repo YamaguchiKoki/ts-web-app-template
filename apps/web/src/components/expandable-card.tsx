@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
@@ -13,7 +14,7 @@ import { type ReactNode, useState } from "react";
  * @property showLessText - 折りたたみボタンのテキスト（デフォルト: "Show less"）
  * @property className - 追加のCSSクラス
  */
-interface ExpandableInfoCardProps {
+interface ExpandableCardProps {
 	header: {
 		compact: ReactNode;
 		expanded: ReactNode;
@@ -50,14 +51,14 @@ interface ExpandableInfoCardProps {
  * };
  * ```
  */
-export const ExpandableInfoCard = ({
+export const ExpandableCard = ({
 	header,
 	content,
 	className,
 	maxLines = 2,
-	showMoreText = "Show more",
-	showLessText = "Show less",
-}: ExpandableInfoCardProps) => {
+	showMoreText = "続きを読む",
+	showLessText = "閉じる",
+}: ExpandableCardProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	return (
@@ -75,14 +76,21 @@ export const ExpandableInfoCard = ({
 			}}
 			aria-expanded={isExpanded}
 		>
-			<div className="flex gap-2 text-sm mb-2">
+			<div className="flex gap-2 text-base font-bold mb-2">
 				{isExpanded ? header.expanded : header.compact}
 			</div>
 			<div className="relative">
 				<div
 					className={cn(
 						"text-sm whitespace-pre-wrap",
-						!isExpanded && `line-clamp-${maxLines}`,
+						!isExpanded && {
+							"line-clamp-1": maxLines === 1,
+							"line-clamp-2": maxLines === 2,
+							"line-clamp-3": maxLines === 3,
+							"line-clamp-4": maxLines === 4,
+							"line-clamp-5": maxLines === 5,
+							"line-clamp-6": maxLines === 6,
+						},
 					)}
 				>
 					{content}

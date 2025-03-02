@@ -1,6 +1,12 @@
 {
-	"name": "api",
+	"name": "@template/api",
 	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/app.ts"
+		}
+	},
 	"scripts": {
 		"build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
 		"zip": "zip -j lambda.zip dist/index.js",
@@ -22,6 +28,7 @@
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.4.3",
+		"@template/contract": "workspace:^",
 		"@template/database": "workspace:^",
 		"@template/domain": "workspace:^",
 		"effect": "catalog:",
