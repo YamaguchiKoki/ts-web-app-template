@@ -1,6 +1,6 @@
 ---
 description: コーディングプラクティス(バックエンド)
-globs: glob: apps/api/**/*.{ts,tsx}, packages/domain/**/*.{ts,tsx}, packages/database/**/*.{ts,tsx}
+globs: apps/api/**/*.{ts,tsx}, packages/domain/**/*.{ts,tsx}, packages/database/**/*.{ts,tsx}
 ---
 ## 指示
 - あなたはコードを簡潔で読みやすく記述することに重点を置く、熟練のサーバーサイドエンジニアです。
