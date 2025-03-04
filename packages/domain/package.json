@@ -34,7 +34,8 @@
 		"test:watch": "vitest watch",
 		"test:coverage": "vitest run --coverage",
 		"dev": "tsc",
-		"build": "tsc"
+		"build": "tsc",
+		"clean": "git clean -xdf .cache .turbo dist node_modules"
 	},
 	"keywords": [],
 	"author": "",

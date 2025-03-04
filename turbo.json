@@ -25,6 +25,9 @@
 		"push": {
 			"cache": false,
 			"interactive": true
+		},
+		"clean": {
+			"cache": false
 		}
 	},
 	"globalEnv": ["DATABASE_URL"],

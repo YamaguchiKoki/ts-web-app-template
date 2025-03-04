@@ -10,7 +10,8 @@
 		"format-and-lint": "biome check .",
 		"format-and-lint:fix": "biome check . --write",
 		"db:studio": "turbo -F @template/database studio",
-		"db:push": "turbo -F @template/database push --ui=tui"
+		"db:push": "turbo -F @template/database push --ui=tui",
+		"clean": "turbo clean"
 	},
 	"keywords": [],
 	"author": "",

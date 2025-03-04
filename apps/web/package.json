@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"format-and-lint": "biome check .",
-		"format-and-lint:fix": "biome check . --write"
+		"format-and-lint:fix": "biome check . --write",
+		"clean": "git clean -xdf .cache .turbo dist node_modules"
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.12.1",

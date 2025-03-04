@@ -25,7 +25,8 @@
 		"format-and-lint:fix": "biome check . --write",
 		"push": "pnpm with-env drizzle-kit push",
 		"studio": "pnpm with-env drizzle-kit studio",
-		"with-env": "dotenv -e ../../.env.local --"
+		"with-env": "dotenv -e ../../.env.local --",
+		"clean": "git clean -xdf .cache .turbo dist node_modules"
 	},
 	"keywords": [],
 	"author": "",
