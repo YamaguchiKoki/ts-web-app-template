@@ -2,6 +2,7 @@
 
 import { FormField } from "@/components/conform/field";
 import { InputConform } from "@/components/conform/input";
+import { Button } from "@/components/ui/button";
 import { createPost } from "@/modules/posts/service/create";
 import { FormProvider, FormStateInput, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
@@ -14,6 +15,9 @@ export const FormSection = () => {
 	const [form, fields] = useForm({
 		constraint: getZodConstraint(createPostRequestSchema),
 		onValidate({ formData }) {
+			console.log({
+				onValidate: formData,
+			});
 			return parseWithZod(formData, { schema: createPostRequestSchema });
 		},
 		defaultValue: {
@@ -29,7 +33,7 @@ export const FormSection = () => {
 			<FormProvider context={form.context}>
 				<FormStateInput />
 				<form
-					method="POST"
+					id={form.id}
 					onSubmit={form.onSubmit}
 					className="flex flex-col gap-4 items-start"
 					action={action}
@@ -37,6 +41,12 @@ export const FormSection = () => {
 					<FormField id="title" name="title" label="タイトル" isRequired>
 						{({ meta }) => <InputConform meta={meta} type="text" />}
 					</FormField>
+					<FormField id="content" name="content" label="内容" isRequired>
+						{({ meta }) => <InputConform meta={meta} type="text" />}
+					</FormField>
+					<Button type="submit" disabled={isPending}>
+						送信
+					</Button>
 				</form>
 			</FormProvider>
 		</div>

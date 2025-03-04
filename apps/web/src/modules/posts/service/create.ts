@@ -7,7 +7,13 @@ import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 export const createPost = async (prevState: unknown, formData: FormData) => {
-	const submission = parseWithZod(formData, { schema: createPostRequestSchema });
+	console.log("createPost");
+	console.log({
+		koki: formData,
+	});
+	const submission = parseWithZod(formData, {
+		schema: createPostRequestSchema,
+	});
 	console.log({ submission });
 
 	if (submission.status !== "success") {
@@ -18,7 +24,10 @@ export const createPost = async (prevState: unknown, formData: FormData) => {
 		json: submission.value,
 	});
 
-	toast.success("投稿が作成されました");
+	console.log({
+		result,
+	});
+	// toast.success("投稿が作成されました");
 
-	return redirect("/posts");
+	return redirect("/");
 };
