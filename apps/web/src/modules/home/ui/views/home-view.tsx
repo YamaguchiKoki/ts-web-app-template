@@ -51,6 +51,7 @@ export const HomeView = ({ categoryId }: HomeViewProps) => {
 					</div>
 				</CardContent>
 			</Card>
+			<FormSection />
 		</div>
 	);
 };

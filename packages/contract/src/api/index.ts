@@ -1,2 +1,6 @@
-export * from "./post/schema.js";
-export * from "./user/schema.js";
+
+
+export {
+	createPostRequestSchema,
+	createPostResponseSchema,
+} from "./post/schema.js";

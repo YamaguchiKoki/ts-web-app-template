@@ -1,24 +1,24 @@
 "use server";
 
 import { hrpc } from "@/lib/hono-rpc";
-import {
-	type CreatePostRequest,
-	createPostRequestSchema,
-} from "@template/contract/api";
+import { parseWithZod } from "@conform-to/zod";
+import { createPostRequestSchema } from "@template/contract/api";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export const createPost = async (prevState: unknown, formData: FormData) => {
-	const parsed = createPostRequestSchema.safeParse(formData);
+	const submission = parseWithZod(formData, { schema: createPostRequestSchema });
+	console.log({ submission });
 
-	if (!parsed.success) {
-		console.log({
-			errors: parsed.error.flatten().fieldErrors,
-		});
-		throw new Error("Invalid request");
+	if (submission.status !== "success") {
+		return submission.reply();
 	}
 
 	const result = await hrpc.posts.$post({
-		json: parsed.data,
+		json: submission.value,
 	});
 
-	return result.json();
+	toast.success("投稿が作成されました");
+
+	return redirect("/posts");
 };

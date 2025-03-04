@@ -1,13 +1,5 @@
 {
 	"extends": "@template/config/base.json",
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"strict": true,
-		"skipLibCheck": true,
-		"types": ["node"],
-		"jsx": "react-jsx",
-		"jsxImportSource": "hono/jsx"
-	}
+	"include": ["src"],
+	"exclude": ["node_modules"]
 }

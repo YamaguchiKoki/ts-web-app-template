@@ -2,6 +2,10 @@ import { type FieldMetadata, getInputProps } from "@conform-to/react";
 import type { ComponentProps } from "react";
 import { Input } from "../ui/input";
 
+type InputConformProps = {
+	meta: FieldMetadata<number>;
+	type: Parameters<typeof getInputProps>[1]["type"];
+} & ComponentProps<typeof Input>;
 /**
  * Conform-to と統合された入力フィールドコンポーネント
  *
@@ -32,14 +36,7 @@ import { Input } from "../ui/input";
  * );
  * ```
  */
-export const InputConform = ({
-	meta,
-	type,
-	...props
-}: {
-	meta: FieldMetadata<string>;
-	type: Parameters<typeof getInputProps>[1]["type"];
-} & ComponentProps<typeof Input>) => {
+export const InputConform = ({ meta, type, ...props }: InputConformProps) => {
 	const { key, ...inputProps } = getInputProps(meta, {
 		type,
 		ariaAttributes: true,
