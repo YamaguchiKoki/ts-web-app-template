@@ -8,10 +8,10 @@ import { DIContainer } from "../config/di-container.js";
 import { makePostRepository } from "../infrastructure/repositories/post.js";
 
 export type DependencyTypes = {
-		postRepository: IPostRepository;
-		createPostUsecase: ReturnType<typeof makeCreatePost>;
-		getPostsUsecase: ReturnType<typeof makeGetPosts>;
-	};
+	postRepository: IPostRepository;
+	createPostUsecase: ReturnType<typeof makeCreatePost>;
+	getPostsUsecase: ReturnType<typeof makeGetPosts>;
+};
 
 // コンテナをグローバルに1つだけ作成
 const container = new DIContainer<DependencyTypes>();

@@ -1,35 +1,35 @@
 {
-  "name": "@template/contract",
-  "version": "1.0.0",
-  "description": "",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "./api": {
-      "types": "./dist/api/index.d.ts",
-      "default": "./src/api/index.ts"
-    }
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "dev": "tsc",
-    "format-and-lint": "biome check .",
-    "format-and-lint:fix": "biome check . --write",
-    "clean": "git clean -xdf .cache .turbo dist node_modules"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.4.1",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/node": "^22.13.8",
-    "typescript": "catalog:"
-  },
-  "dependencies": {
-    "@template/config": "workspace:^",
-    "@template/domain": "workspace:^",
-    "zod": "catalog:"
-  }
+	"name": "@template/contract",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./api": {
+			"types": "./dist/api/index.d.ts",
+			"default": "./src/api/index.ts"
+		}
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"dev": "tsc",
+		"format-and-lint": "biome check .",
+		"format-and-lint:fix": "biome check . --write",
+		"clean": "git clean -xdf .cache .turbo dist node_modules"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.4.1",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/node": "^22.13.8",
+		"typescript": "catalog:"
+	},
+	"dependencies": {
+		"@template/config": "workspace:^",
+		"@template/domain": "workspace:^",
+		"zod": "catalog:"
+	}
 }
