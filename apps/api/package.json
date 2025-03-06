@@ -14,7 +14,8 @@
 		"format-and-lint:fix": "biome check . --write",
 		"dev": "pnpm with-env nodemon --config nodemon.json",
 		"with-env": "dotenv -e ../../.env.local --",
-		"clean": "git clean -xdf .cache .turbo dist node_modules"
+		"clean": "git clean -xdf .cache .turbo dist node_modules",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -25,7 +26,8 @@
 		"esbuild": "^0.21.4",
 		"nodemon": "^3.1.9",
 		"postgres": "^3.4.5",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "catalog:"
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.4.3",

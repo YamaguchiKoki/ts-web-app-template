@@ -16,7 +16,8 @@
 		"dev": "tsc",
 		"format-and-lint": "biome check .",
 		"format-and-lint:fix": "biome check . --write",
-		"clean": "git clean -xdf .cache .turbo dist node_modules"
+		"clean": "git clean -xdf .cache .turbo dist node_modules",
+		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "",

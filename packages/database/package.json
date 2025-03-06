@@ -26,7 +26,8 @@
 		"push": "pnpm with-env drizzle-kit push",
 		"studio": "pnpm with-env drizzle-kit studio",
 		"with-env": "dotenv -e ../../.env.local --",
-		"clean": "git clean -xdf .cache .turbo dist node_modules"
+		"clean": "git clean -xdf .cache .turbo dist node_modules",
+		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "",
