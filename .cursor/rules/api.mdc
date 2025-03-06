@@ -23,7 +23,7 @@ globs: apps/api/**/*.{ts,tsx}, packages/domain/**/*.{ts,tsx}, packages/database/
 
 ## 実装パターン
 
-### エンティティ
+### エンティティ(packages/domain/src/entities)
 - zodのスキーマで定義すること
 - drizzle-zodによるスキーマは使用しないこと
 - エラーオブジェクトには全て以下のAppErrorを実装すること
@@ -42,10 +42,11 @@ export abstract class AppError extends Error {
 }
 ```
 
-### リポジトリ
+### リポジトリ(packages/domain/src/repositories)
 - クエリビルダを使って記述すること
+- 実装は(apps/api/src/infrastructure/repositories)に記述
 
-### ユースケース
+### ユースケース(packages/domain/src/usecases)
 - Effectを用いて実装すること
 - 高階関数として定義し、外部依存は引数を通じて渡されるよう実装すること。また参照透過であること。
 - 各関数をパイプラインオペレータでラップしたものを返すよう実装すること。Effectの実行は行わないこと。
@@ -63,7 +64,7 @@ export const makeCreatePost =
 		);
 ```
 
-### ハンドラ
+### ハンドラ(apps/api/src/adapters/handler)
 - honoのContextオブジェクトからDIコンテナを介してサービスを取得すること
 - usecaseの実行結果はEither型で受け、パターンマッチングで結果を処理すること
 
