@@ -1,10 +1,10 @@
 import { Effect } from "effect";
-import type { ZodSchema } from "zod";
+import type { TypeOf, ZodSchema } from "zod";
 import { ValidationError } from "../errors/custom-error.js";
 
 export const validateAndParse =
-	<T>(schema: ZodSchema<T>) =>
-	(value: unknown): Effect.Effect<T, ValidationError> => {
+	<T extends ZodSchema>(schema: T) =>
+	(value: unknown): Effect.Effect<TypeOf<T>, ValidationError> => {
 		const parsed = schema.safeParse(value);
 		if (!parsed.success) {
 			console.log({

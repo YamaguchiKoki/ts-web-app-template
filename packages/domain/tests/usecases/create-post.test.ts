@@ -5,9 +5,12 @@ import { makeCreatePost } from "../../src/usecases/post/create-post";
 import { mockPost, validCreatePostInput } from "../__fixtures__/post";
 
 describe("makeCreatePost", () => {
+	const mockPosts = [mockPost, { ...mockPost, id: "2" }];
 	it("正常系：新規投稿を作成できる", async () => {
 		const mockRepository = {
 			create: (input: CreatePostInput) => Effect.succeed(mockPost),
+			findMany: (input: { limit: number; offset: number }) =>
+				Effect.succeed(mockPosts),
 		};
 
 		const createPost = makeCreatePost(mockRepository);

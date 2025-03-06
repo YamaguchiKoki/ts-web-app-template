@@ -17,6 +17,6 @@ export const makeCreatePost =
 	): Effect.Effect<Post, PostError | DatabaseError | ValidationError> =>
 		pipe(
 			Effect.succeed(input),
-			Effect.flatMap(validateAndParse<CreatePostInput>(CreatePostInputSchema)),
+			Effect.flatMap(validateAndParse(CreatePostInputSchema)),
 			Effect.flatMap(repository.create),
 		);

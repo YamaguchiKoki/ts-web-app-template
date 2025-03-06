@@ -16,3 +16,10 @@ export const CreatePostInputSchema = z.object({
 });
 
 export type CreatePostInput = z.infer<typeof CreatePostInputSchema>;
+
+export const GetPostsInputSchema = z.object({
+	limit: z.number().min(1).max(100).default(10),
+	offset: z.number().min(0).default(0),
+});
+
+export type GetPostsInput = z.infer<typeof GetPostsInputSchema>;

@@ -4,6 +4,7 @@ import {
 	type CreatePostInput,
 	type DatabaseError,
 	DatabaseQueryError,
+	type GetPostsInput,
 	type IPostRepository,
 	type Post,
 	type PostError,
@@ -39,6 +40,23 @@ export const makePostRepository = (): IPostRepository => ({
 			catch: (e) =>
 				new DatabaseQueryError(
 					"投稿作成クエリの実行に失敗しました",
+					e as Error,
+				),
+		}),
+	findMany: (input: GetPostsInput): Effect.Effect<Post[], DatabaseError> =>
+		Effect.tryPromise({
+			try: async () => {
+				const result = await db
+					.select()
+					.from(posts)
+					.limit(input.limit)
+					.offset(input.offset);
+
+				return result;
+			},
+			catch: (e) =>
+				new DatabaseQueryError(
+					"投稿一覧取得クエリの実行に失敗しました",
 					e as Error,
 				),
 		}),
