@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    format-and-lint:
+      glob: "**/*.{ts,tsx}"
+      run: pnpm format-and-lint:fix

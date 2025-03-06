@@ -10,6 +10,7 @@
 		"sonner",
 		"hono",
 		"hrpc",
-		"nvmrc"
+		"nvmrc",
+		"lefthook"
 	]
 }
