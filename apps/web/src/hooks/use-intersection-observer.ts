@@ -34,8 +34,8 @@ export const useIntersectionObserver = (options?: IntersectionObserverInit) => {
 	const targetRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const observer = new IntersectionObserver(([entry]) => {
-			setIsIntersecting(entry.isIntersecting);
+		const observer = new IntersectionObserver(([entry = null]) => {
+			setIsIntersecting(entry?.isIntersecting ?? false);
 		}, options);
 
 		if (targetRef.current) {
