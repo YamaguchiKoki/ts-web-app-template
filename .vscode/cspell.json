@@ -9,6 +9,7 @@
 		"turbopack",
 		"sonner",
 		"hono",
-		"hrpc"
+		"hrpc",
+		"nvmrc"
 	]
 }

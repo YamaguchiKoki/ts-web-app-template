@@ -1,0 +1,40 @@
+name: "CI"
+
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: ["main"]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/main' }}
+
+# TODO: テストステップ追加、turboのリモートキャッシュ設定
+jobs:
+  format-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Copy env
+        shell: bash
+        run: cp .env.example .env
+
+      - name: Check
+        run: pnpm format-and-lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Typecheck
+        run: pnpm typecheck

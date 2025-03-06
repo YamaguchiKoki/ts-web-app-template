@@ -30,6 +30,9 @@
 		},
 		"typecheck": {
 			"cache": false
+		},
+		"test": {
+			"cache": false
 		}
 	},
 	"globalEnv": ["DATABASE_URL"],

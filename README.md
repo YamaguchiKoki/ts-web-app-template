@@ -5,6 +5,11 @@
 - Neon DB作成
 - ngrok作成(webhookでclerkのユーザー情報をDB登録する場合)
 
+```bash
+# Nodejs 22.12を使用
+nvm use
+```
+
 # 開発用コマンド
 
 ```bash
