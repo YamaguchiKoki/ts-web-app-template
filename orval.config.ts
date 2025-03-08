@@ -2,7 +2,6 @@ import { defineConfig } from "orval";
 
 const apiDir = "./apps/api";
 const webDir = "./apps/web";
-const baseUrl = "http://localhost:8787";
 const docsPath = `${apiDir}/docs/openapi.yml`;
 const appName = "template";
 
@@ -21,7 +20,6 @@ export default defineConfig({
 			target: `${webDir}/src/generated/api`,
 			schemas: `${webDir}/src/generated/schemas`,
 			clean: true,
-			baseUrl,
 			override: {
 				mutator: {
 					path: axiosPath,
