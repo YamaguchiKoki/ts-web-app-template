@@ -26,6 +26,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"lefthook": "^1.11.2",
+		"orval": "^7.6.0",
 		"turbo": "^2.4.3"
 	}
 }
