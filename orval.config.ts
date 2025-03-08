@@ -28,7 +28,6 @@ export default defineConfig({
 				query: {
 					useSuspenseQuery: true,
 					useSuspenseInfiniteQuery: true,
-					useInfiniteQueryParam: "page",
 					usePrefetch: true,
 				},
 			},

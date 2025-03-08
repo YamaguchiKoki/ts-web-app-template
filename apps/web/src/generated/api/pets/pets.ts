@@ -216,8 +216,7 @@ export const getListPetsSuspenseInfiniteQueryOptions = <
 
 	const queryFn: QueryFunction<Awaited<ReturnType<typeof listPets>>> = ({
 		signal,
-		pageParam,
-	}) => listPets({ ...params, page: pageParam || params?.page }, signal);
+	}) => listPets(params, signal);
 
 	return {
 		queryKey,
