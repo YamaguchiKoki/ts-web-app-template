@@ -5,6 +5,7 @@ import {
 listPetsQueryParams,
 listPetsResponse
 } from '../template.zod'
+import { AppType } from '../../app';
 
 const factory = createFactory();
 
@@ -12,7 +13,7 @@ const factory = createFactory();
 export const listPetsHandlers = factory.createHandlers(
 zValidator('query', listPetsQueryParams),
 zValidator('response', listPetsResponse),
-async (c: ListPetsContext) => {
-
+async (c: ListPetsContext<AppType>) => {
+  const usecase = c.env.container.get('getPostsUsecase');
   },
 );
